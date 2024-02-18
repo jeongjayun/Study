@@ -1,15 +1,13 @@
 package com.example.demo.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
+import com.example.demo.dto.QuestionDTO;
 import com.example.demo.question.Question;
 
 @Mapper
 public interface SbbMapper {
 	
-	Question selectById(Integer id);
+	public void newQuestion(QuestionDTO questionDTO) throws Exception; //질문 등록하기 
 
 }
