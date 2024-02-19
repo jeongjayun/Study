@@ -8,8 +8,29 @@
 			resultType="java.lang.Long">
 			SELECT board_table_seq.nextval FROM dual
 		</selectKey>
-		insert into board_table (id, boardTitle, boardWriter, boardPass,
-		boardContents)
-		values(board_table_seq.currval, #{boardTitle}, #{boardWriter}, #{boardPass}, #{boardContents})
+		insert into board_table (
+								  id, <!-- sequence 적용, 글번호 -->
+								  boardTitle,<!-- 글 제목 -->
+								  boardWriter,<!-- 작성자 -->
+								  boardPass,<!-- 글 작성 시 비밀번호 -->
+								  boardContents<!-- 글 내용 -->
+								)
+						values  (
+								  board_table_seq.currval,
+								  #{boardTitle},
+							 	  #{boardWriter},
+								  #{boardPass},
+								  #{boardContents}
+								)
 	</insert>
+
+	<select id="findAll" resultType="board">
+		SELECT  id,
+				boardTitle,
+				boardWriter,
+				boardHits,
+				to_char(createdAt, 'yyyy-MM-dd') AS createdAt
+		FROM    board_table
+		ORDER BY createdAt DESC
+	</select>
 </mapper>
