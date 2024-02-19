@@ -31,7 +31,9 @@ th, td {
 		<tbody>
 			<tr th:each="board:${boardList}">
 				<td th:text="${board.id}">글 번호</td>
-				<td th:text="${board.boardTitle}">글 제목</td>
+				</a>
+				<td><a th:text="${board.boardTitle}" th:href="@{|/${board.id}|}">글
+						제목</a></td>
 				<td th:text="${board.boardWriter}">작성자</td>
 				<td th:text="${board.createdAt}">작성일</td>
 				<td th:text="${board.boardHits}">조회수</td>

@@ -24,13 +24,40 @@
 								)
 	</insert>
 
-	<select id="findAll" resultType="board">
+	<select id="getList" resultType="board">
 		SELECT  id,
 				boardTitle,
 				boardWriter,
 				boardHits,
-				to_char(createdAt, 'yyyy-MM-dd') AS createdAt
+				TO_CHAR(createdAt, 'yyyy-MM-dd') AS createdAt
 		FROM    board_table
 		ORDER BY createdAt DESC
 	</select>
+	
+	<update id="updateHits" parameterType="Long">
+		update board_table set boardHits = boardHits+1 where id=#{id}
+	</update>
+	
+	<select id="findById" parameterType="Long" resultType="board">
+		SELECT id,
+			   boardTitle,
+			   boardWriter,
+			   boardPass,
+			   boardContents,
+			   boardHits,
+			   TO_CHAR(createdAt, 'yyyy-MM-dd') AS createdAt
+		FROM   board_table
+		WHERE  id = #{id}
+	</select>
+	
+	<update id="update">
+		UPDATE board_table
+		SET    boardTitle = #{boardTitle},
+			   boardContents = #{boardContents}
+		WHERE  id = #{id} 		
+	</update>
+	
+	  <delete id="delete" parameterType="Long">
+        DELETE FROM board_table WHERE id=#{id}
+    </delete>
 </mapper>
