@@ -3,14 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <title>Title</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+	<!-- 보통의 방식 
 	<form action="/save" method="post">
-		제목: <input type="text" name="boardTitle"><br> 작성자: <input
-			type="text" name="boardWriter"><br> 비밀번호: <input
-			type="text" name="boardPass"><br> 내용:
+		제목: <input type="text" name="boardTitle"><br>
+		작성자: <input type="text" name="boardWriter"><br>
+		비밀번호: <input type="text" name="boardPass"><br>
+		내용:
 		<textarea name="boardContents" cols="30" rows="10"></textarea>
 		<input type="submit" value="작성">
 	</form>
+	-->
+	
+	<!-- json/ajax -->
+	<form>
+		<fieldset>
+		<p>
+			<label for="boardTitle">제목 : </label>
+			<input type="text" name="boardTitle" id="boardTitle">
+		</p>
+		<p>
+			<label for="boardWriter">작성자 : </label>
+			<input type="text" name="boardWriter" id="boardWriter">
+		</p>
+		<p>
+			<label for="boardPass">비밀번호 : </label>
+			<input type="text" name="boardPass" id="boardPass">
+		</p>
+		<p>
+			<label for="boardContents">내용 : </label>
+			<textarea name="boardContents" cols="30" rows="10" id="boardContents"></textarea>
+		</p>
+		<button onclick="jsonAjaxTest()">json/ajax 형식으로 데이터 전송</button>
+		</fieldset>
+	</form>
+	
 </body>
+
+<script>
+	function jsonAjaxTest() {
+		var obj = {
+		        boardTitle: $("#boardTitle").val(),
+		        boardWriter: $("#boardWriter").val(),
+		        boardPass: $("#boardPass").val(),
+		        boardContents: $("#boardContents").val()
+		    };
+		
+        console.log($("#boardTitle").val());
+        console.log($("#boardWriter").val());
+        console.log($("#boardPass").val());
+        console.log($("#boardContents").val());
+		
+		$.ajax({
+        	url: "/jsonAjaxTest",
+        	type: "post",
+        	data: JSON.stringify(obj),
+        	dataType: "json",
+        	contentType: "application/json",
+        	success: function(data) {
+            	alert("성공");
+            	console.log(obj);
+        	},
+        	error: function() {
+        		console.log(obj);
+            	alert("실패");
+        	}
+    	});
+	};
+</script>
+
 </html>

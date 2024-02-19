@@ -1,5 +1,6 @@
 package com.practice.board.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -7,6 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.practice.board.dto.BoardDTO;
 import com.practice.board.service.BoardService;
@@ -30,12 +35,11 @@ public class BoardController {
 		return "redirect:/list";
 	}
 
-//	@PostMapping("/save2") // 글 저장하기
-//	public String save(BoardDTO boardDTO) {
-//		System.out.println("boardDTO = " + boardDTO);
-//		boardService.save(boardDTO);
-//		return "index";
-//	}
+	@RequestMapping(value="/jsonAjaxTest", method = RequestMethod.POST)
+	@ResponseBody
+	public void ajaxJsonTest(@RequestBody HashMap<String, Object> map) {
+		System.out.println(map);
+	}
 
 	@GetMapping("/list") // 글 목록 페이지로 이동
 	public String getList(Model model) {
@@ -68,6 +72,7 @@ public class BoardController {
 		boardService.update(boardDTO);
 		BoardDTO dto = boardService.findById(boardDTO.getId());
 		model.addAttribute("board", dto);
+		// TODO : 수정페이지로 이동할 때 fail 
 		return "detail";
 	}
 	
