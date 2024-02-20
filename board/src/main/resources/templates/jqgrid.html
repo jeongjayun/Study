@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<title>JqGrid</title>
+
+<!-- Include necessary CSS files -->
+<link rel="stylesheet" type="text/css" href="jqgrid/css/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="jqgrid/css/ui.jqgrid.css">
+<link rel="stylesheet" type="text/css" href="jqgrid/css/ui.multiselect.css">
+
+<!-- Include jQuery library -->
+<script type="text/javascript" src="jquery/jquery-3.2.1.min.js"></script>
+
+<!-- Include jqGrid language file (if needed) -->
+<script type="text/javascript" src="jqgrid/js/grid.locale-kr.js"></script>
+
+<!-- Include jqGrid plugin -->
+<script type="text/javascript" src="jqgrid/js/jquery.jqGrid.min.js"></script>
+</head>
+<body>
+
+<h2>jqgird 실습</h2>
+
+	<div class="row">
+		<div>
+			<select id="selectId">
+				<option value="">전체</option>
+				<option value="A">A</option>
+				<option value="B">B</option>
+				<option value="C">C</option>
+				<option value="D">D</option>
+			</select>
+			<span><a href="#" onclick="javascript:goSearch();"">조회</a></span>
+		</div>
+		
+		<div>
+			<table id="jqGrid">
+				<div id="jqGridPage"></div>
+			</table>
+		</div>
+	</div>
+
+</body>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		var cnames=['아이디','이름', '전화번호', '주소', '기타', '성별코드'];
+			
+			$("#jqGrid").jqGrid({
+				
+				url: "jqgridStartMain.do",
+				datatype: "local",
+				colNames: cnames,
+				colModel: [
+					{name: 'seq', index: 'seq', width: 55, key: true, align: "center"},
+					{name: 'name', index: 'name', width: 100},
+					{name: 'phone', index: 'phone', width: 100},
+					{name: 'address', index: 'seq', width: 100},
+					{name: 'etcc', index: 'etcc', width: 100},
+					{name: 'gender', index: 'gender', width: 100}
+				],
+					height: 480,
+					rowNum: 10,
+					rowList: [10, 20, 30],
+					pager: '#jqGridPager',
+					rownumbers: true,
+					ondbClickRow: function(rowId, iRow, iCol, e){
+						
+						if(iCol == 1){
+							alert(rowId + " 번째 줄입니다.");
+						}
+					},
+					viewrecords: true,
+					caption: "실습용 테이블"
+			});
+	});
+	
+	https://rwd337.tistory.com/88 보고 실습 중 
+	
+</script>
+</html>
