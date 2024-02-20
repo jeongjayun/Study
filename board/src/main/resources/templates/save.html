@@ -37,6 +37,7 @@
 			<textarea name="boardContents" cols="30" rows="10" id="boardContents"></textarea>
 		</p>
 		<button onclick="jsonAjaxTest()">json/ajax 형식으로 데이터 전송</button>
+		<a href="/list">목록으로</a>
 		</fieldset>
 	</form>
 	
@@ -44,31 +45,30 @@
 
 <script>
 	function jsonAjaxTest() {
+		    
 		var obj = {
-		        boardTitle: $("#boardTitle").val(),
+			    boardTitle: $("#boardTitle").val(),
 		        boardWriter: $("#boardWriter").val(),
 		        boardPass: $("#boardPass").val(),
 		        boardContents: $("#boardContents").val()
-		    };
-		
-        console.log($("#boardTitle").val());
-        console.log($("#boardWriter").val());
-        console.log($("#boardPass").val());
-        console.log($("#boardContents").val());
+		    }
 		
 		$.ajax({
         	url: "/jsonAjaxTest",
         	type: "post",
         	data: JSON.stringify(obj),
         	dataType: "json",
-        	contentType: "application/json",
+        	contentType: "application/json; charset=UTF-8",
         	success: function(data) {
             	alert("성공");
             	console.log(obj);
+            	window.location.href = "/list";
+            	
         	},
-        	error: function() {
+        	error: function(jqXHR, textStatus) {
         		console.log(obj);
-            	alert("실패");
+				console.log(jqXHR.responseText);
+				alert("실패: " + jqXHR.statusText);
         	}
     	});
 	};

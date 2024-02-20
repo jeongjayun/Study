@@ -2,6 +2,7 @@ package com.practice.board.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.practice.board.dto.BoardDTO;
@@ -34,18 +33,41 @@ public class BoardController {
 		boardService.save(boardDTO);
 		return "redirect:/list";
 	}
-
-	@RequestMapping(value="/jsonAjaxTest", method = RequestMethod.POST)
+	
 	@ResponseBody
-	public void ajaxJsonTest(@RequestBody HashMap<String, Object> map) {
-		System.out.println(map);
+	@PostMapping("/jsonAjaxTest") // ajax를 map으로 받아오는 경우
+	public int jsonAjaxTest(@RequestBody Map<String, Object> map) {
+
+		System.out.println("map : " + map);
+
+		Map<String, Object> temp = new HashMap<>();
+
+		temp.put("boardTitle", map.get("boardTitle"));
+		temp.put("boardWriter", map.get("boardWriter"));
+		temp.put("boardPass", map.get("boardPass"));
+		temp.put("boardContents", map.get("boardContents"));
+
+		System.out.println("tempt : " + temp);
+		
+		boardService.save2(temp);
+		
+		return 1;
 	}
+
+	/*
+	 * @ResponseBody
+	 * 
+	 * @PostMapping("/jsonAjaxTest") // ajax를 list<map -- 형식으로 받아오는 경우 public void
+	 * jsonAjaxTest(@RequestBody List<Map<String, Object>> param) { List<Map<String,
+	 * Object>> tempList = new ArrayList<>(); Map<String, Object> map1 = new
+	 * HashMap<>(); map1.put("boardTitle", param.get(0).get("boardTitle"));
+	 * tempList.add(0, map1); System.out.println("tempList : " + tempList); }
+	 */
 
 	@GetMapping("/list") // 글 목록 페이지로 이동
 	public String getList(Model model) {
 		List<BoardDTO> boardDTOList = boardService.getList();
 		model.addAttribute("boardList", boardDTOList);
-		System.out.println("boardDTOList : " + boardDTOList);
 		return "list";
 	}
 
@@ -56,7 +78,6 @@ public class BoardController {
 		// 상세내용
 		BoardDTO boardDTO = boardService.findById(id);
 		model.addAttribute("board", boardDTO);
-		System.out.println("boardDTO = " + boardDTO);
 		return "detail";
 	}
 
@@ -72,16 +93,14 @@ public class BoardController {
 		boardService.update(boardDTO);
 		BoardDTO dto = boardService.findById(boardDTO.getId());
 		model.addAttribute("board", dto);
-		// TODO : 수정페이지로 이동할 때 fail 
+		// TODO : 수정페이지로 이동할 때 fail
 		return "detail";
 	}
-	
+
 	@GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Long id) {
-        boardService.delete(id);
-        return "redirect:/list";
-    }
-	
-	
+	public String delete(@PathVariable("id") Long id) {
+		boardService.delete(id);
+		return "redirect:/list";
+	}
 
 }

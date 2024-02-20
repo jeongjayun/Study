@@ -1,6 +1,8 @@
 package com.practice.board.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,24 @@ public class BoardService {
 
 	public void save(BoardDTO boardDTO) {
 		boardRepository.save(boardDTO);
+	}
+
+	public void save2(Map<String, Object> map) {
+		// map 에서 데이터 추출
+		String boardTitle = (String) map.get("boardTitle");
+		String boardWriter = (String) map.get("boardWriter");
+		String boardPass = (String) map.get("boardPass");
+		String boardContents = (String) map.get("boardContents");
+
+		// 데이터 저장
+		Map<String, Object> board = new HashMap();
+		board.put("boardTitle", boardTitle);
+		board.put("boardWriter", boardWriter);
+		board.put("boardPass", boardPass);
+		board.put("boardContents", boardContents);
+		
+		System.out.println("save2 에서 service 확인 : " + board);
+		boardRepository.save2(board);
 	}
 
 	public List<BoardDTO> getList() {

@@ -1,6 +1,7 @@
 package com.practice.board.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,11 @@ public class BoardRepository {
 	public BoardDTO save(BoardDTO boardDTO) {
 		sql.insert("Board.save", boardDTO);
 		return boardDTO;
+	}
+	
+	public Map<String, Object> save2(Map<String, Object> board) {
+		sql.insert("Board.save2", board);
+		return board;
 	}
 
 	public List<BoardDTO> getList() {

@@ -23,6 +23,27 @@
 								  #{boardContents}
 								)
 	</insert>
+	
+	<insert id="save2" parameterType="board">
+		<selectKey keyProperty="id" order="BEFORE"
+			resultType="java.lang.Long">
+			SELECT board_table_seq.nextval FROM dual
+		</selectKey>
+		insert into board_table (
+								  id, <!-- sequence 적용, 글번호 -->
+								  boardTitle,<!-- 글 제목 -->
+								  boardWriter,<!-- 작성자 -->
+								  boardPass,<!-- 글 작성 시 비밀번호 -->
+								  boardContents<!-- 글 내용 -->
+								)
+						values  (
+								  board_table_seq.currval,
+								  #{boardTitle},
+							 	  #{boardWriter},
+								  #{boardPass},
+								  #{boardContents}
+								)
+	</insert>
 
 	<select id="getList" resultType="board">
 		SELECT  id,
