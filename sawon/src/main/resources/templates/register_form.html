@@ -1,0 +1,90 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.css}">
+<title>사원 관리</title>
+</head>
+
+<body>
+
+	<div class="container my-3">
+		<h2>사원 등록</h2>
+		<form action="/register" method="post" th:object="${sawon}">
+			<fieldset>
+				<p>
+					<label th:for="sawonName">사원 명 : </label>
+					<input type="text"
+						th:field="*{sawonName}" placeholder="이름을 입력하세요.">
+				</p>
+
+				<p>
+					<label th:for="sawonId">사원 ID : </label>
+					<input type="text"
+						th:field="*{sawonId}" placeholder="id를 입력하세요.">
+				</p>
+
+				<p>
+					<label th:for="phoneNum">핸드폰 번호 : </label>
+					<input type="text"
+						th:field="*{phoneNum}" placeholder="00000000000, -없이 입력하세요.">
+				</p>
+
+				<p>
+					<label th:for="emailAddress">이메일 주소 : </label>
+					<input type="text"
+						th:field="*{emailAddress}" placeholder="example@example.com">
+				</p>
+
+				<p>
+					<label th:for="departmentName">부서명 : </label>
+					<input type="text"
+						th:field="*{departmentName}" placeholder="부서명을 입력하세요.">
+				</p>
+
+				<p>
+					<label th:for="positionName">직급 명 : </label>
+					<input type="text"
+						th:field="*{positionName}" placeholder="직급명을 입력하세요.">
+				</p>
+				
+					<p>
+					<label th:for="birthDt">생년월일 : </label>
+					<input type="text"
+						th:field="*{birthDt}" placeholder="00000000, 8글자">
+				</p>
+
+				<p>
+					<label th:for="homeAddress">집 주소 : </label>
+					<input type="text"
+						th:field="*{homeAddress}" placeholder="ooo시 ooo동 ooo번지">
+				</p>
+				
+				<p>
+					<label th:for="homeAddress">입사 일자 : </label>
+					<input type="text"
+						th:field="*{homeAddress}" placeholder="ooo시 ooo동 ooo번지"> <!-- 수정해야행 -->
+				</p>
+
+				<p>
+					<label th:for="insSawonId">등록 사원 : </label>
+					<input type="text"
+						th:field="*{insSawonId}" placeholder="등록 사원 아이디 입력">
+				</p>
+
+			</fieldset>
+
+			<button type="submit">작성</button>
+			<button th:onclick="|location.href='@{/list}'|">취소</button>
+		</form>
+
+
+
+
+	</div>
+</body>
+</html>

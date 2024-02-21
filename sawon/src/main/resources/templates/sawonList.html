@@ -1,0 +1,65 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.css}">
+<title>사원 관리</title>
+</head>
+
+<body>
+
+
+
+	<div class="container my-3">
+		<h2>사원 관리</h2>
+
+		<a href="/register">등록</a>
+		
+		<table class="table">
+
+			<thead class="table-dark">
+				<tr>
+					<th>사원 명</th>
+					<th>사원 ID</th>
+					<th>핸드폰 번호</th>
+					<th>이메일 주소</th>
+					<th>부서 명</th>
+					<th>생년월일</th>
+					<th>직급 명</th>
+					<th>집 주소</th>
+					<th>입사 일자</th>
+					<th>퇴사 일자</th>
+					<th>등록 사원 ID</th>
+					<th>등록 일시</th>
+					<th>수정 사원 ID</th>
+					<th>수정 일시</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="sawon : ${sawonList}">
+					<td th:text="${sawon.sawonName}">사원 명</td>
+					<td th:text="${sawon.sawonId}">아이디</td>
+					<td th:text="${sawon.phoneNum}">번호</td>
+					<td th:text="${sawon.emailAddress}">주소</td>
+					<td th:text="${sawon.departmentName}">부서</td>
+					<td th:text="${sawon.birthDt}">생년월일</td>
+					<td th:text="${sawon.positionName}">직급</td>
+					<td th:text="${sawon.homeAddress}">주소</td>
+					<td th:text="${sawon.enterDt}">입사일</td>
+					<td th:text="${sawon.retiredDt}">퇴사일</td>
+					<td th:text="${sawon.insSawonId}">입력자</td>
+					<td th:text="${sawon.insDtm}">입력일</td>
+					<td th:text="${sawon.updSawonId}">수정자</td>
+					<td th:text="${sawon.updDtm}">수정일</td>
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+</body>
+</html>

@@ -30,7 +30,11 @@
 				<option value="C">C</option>
 				<option value="D">D</option>
 			</select>
-			<span><a href="#" onclick="javascript:goSearch();"">조회</a></span>
+			<span><a href="#" onclick="javascript:goSearch();">조회</a></span>
+			
+			<span><a href="#">추가</a></span>
+			<span><a href="#">수정</a></span>
+			<span><a href="#">삭제</a></span>
 		</div>
 		
 		<div>
@@ -44,6 +48,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		var myData = [
+			{date : "2017-10-01", name : "test", id : }
+		]
 		
 		var cnames=['아이디','이름', '전화번호', '주소', '기타', '성별코드'];
 			
@@ -75,8 +82,6 @@
 					caption: "실습용 테이블"
 			});
 	});
-	
-	https://rwd337.tistory.com/88 보고 실습 중 
-	
+
 </script>
 </html>
