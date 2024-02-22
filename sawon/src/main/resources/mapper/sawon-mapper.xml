@@ -31,11 +31,8 @@
 			            	    #{birthDt},       
 			                    #{positionName},
 			                    #{homeAddress},   
-			                    '000',
-			                    '000'
-								<!-- 
-								#{enterDt},       
-								#{insSawonId} -->
+			                    #{enterDt},
+			                    #{insSawonId}
 			           			)
 	</insert>
 </mapper>

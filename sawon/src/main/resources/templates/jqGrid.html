@@ -1,0 +1,270 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Include necessary CSS files -->
+<link rel="stylesheet" type="text/css" th:href="@{css/jquery-ui.css}">
+<link rel="stylesheet" type="text/css" th:href="@{css/ui.jqgrid.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{css/ui.multiselect.css}">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" type="text/css" th:href="@{css/bootstrap.css}">
+
+<!-- Include jQuery library -->
+<script type="text/javascript" th:src="@{js/jquery-3.2.1.min.js}"></script>
+
+<!-- Include jqGrid language file (if needed) -->
+<script type="text/javascript" th:src="@{js/jqgrid/grid.locale-en.js}"></script>
+
+<!-- Include jqGrid plugin -->
+<script type="text/javascript"
+	th:src="@{js/jqgrid/jquery.jqGrid.min.js}"></script>
+
+<title>사원 정보</title>
+</head>
+
+<body>
+
+	<div class="container my-3">
+		<!-- 부트스트랩 css -->
+
+		<div class="grid full-height full-height-strict">
+			<table id="jqGrid" class="full-size-jq-grid">
+			</table>
+			<div id="jqGridPage"></div>
+		</div>
+
+		<a th:href="@{/thymeleafList}">타임리프 리스트</a>
+	</div>
+
+</body>
+
+
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+
+				var addDialog = {
+					addCaption : "관리자 등록",
+					bSubmit : "등록",
+					url : '/register',
+					closeAfterAdd : true,
+					closeAfterEdit : true,
+					modal : true, // modal 창
+					savekey : [ true, 13 ], //enter 키
+					createForm : true, // 수정 및 등록 시 폼 재생성 - 필수
+					width : "400",
+					beforInitData : function(formid) {
+						$("#jqGrid").jqGrid('setColProp', 'sawonId', {
+							editable : true
+						});
+						//jqgrid 에서 데이터 추가하기 여기서부터 계속 작업하기 https://frontierdev.tistory.com/1 
+					}
+				};
+
+				$.jgrid.nav.addtext = "추가";
+				$.jgrid.nav.edittext = "수정";
+				$.jgrid.nav.deltext = "삭제";
+				$.jgrid.edit.addCaption = "사원 추가";
+				$.jgrid.edit.editCaption = "사원 수정";
+				$.jgrid.del.caption = "사원 삭제";
+				$.jgrid.del.msg = "정말 삭제하겠습니까?";
+
+				$("#jqGrid").jqGrid(
+						{
+							url : "/jsonGetSawonList", //ajax 요청주소 
+							datatype : "JSON", //json 방식으로 데이터 받을 예정
+							mtype : "GET", //API 요청방식을 설정
+
+							colNames : [ '사원 명', '사원 ID', '핸드폰 번호', '이메일 주소',
+									'부서명', '생년월일', '직급 명', '집 주소', '입사 일자',
+									'퇴사 일자', '등록 사원 ID', '등록 일시', '수정 사원 ID',
+									'수정 일시' ],
+							colModel : [ {
+								name : 'sawonName',
+								index : 'sawonName',
+								key : true,
+								align : "center",
+								editable : true,
+								edittype : 'text',
+								editrules : {
+									required : true
+								},
+								formoptions : {
+									elmsuffix : ' *'
+								}
+							}, {
+								name : 'sawonId',
+								index : 'sawonId',
+								align : "center",
+								editable : true,
+								edittype : 'text',
+								editrules : {
+									required : true
+								},
+								formoptions : {
+									elmsuffix : ' *'
+								}
+							}, {
+								name : 'phoneNum',
+								index : 'phoneNum',
+								align : "center",
+								editable : true,
+								edittype : 'text',
+								editrules : {
+									required : true
+								},
+								formoptions : {
+									elmsuffix : ' *'
+								}
+							}, {
+								name : 'emailAddress',
+								index : 'emailAddress',
+								align : "center",
+								editable : true,
+								edittype : 'text',
+								editrules : {
+									required : true
+								},
+								formoptions : {
+									elmsuffix : ' *'
+								}
+							}, {
+								name : 'departmentName',
+								index : 'departmentName',
+								align : "center",
+								editable : true,
+								edittype : 'text',
+								editrules : {
+									required : true
+								},
+								formoptions : {
+									elmsuffix : ' *'
+								}
+							}, {
+								name : 'birthDt',
+								index : 'birthDt',
+							}, {
+								name : 'positionName',
+								index : 'positionName',
+								align : "center",
+								editable : true,
+								edittype : 'text',
+								editrules : {
+									required : true
+								},
+								formoptions : {
+									elmsuffix : ' *'
+								}
+							}, {
+								name : 'homeAddress',
+								index : 'homeAddress',
+								align : "center",
+								editable : true,
+								edittype : 'text',
+								editrules : {
+									required : true
+								},
+								formoptions : {
+									elmsuffix : ' *'
+								}
+							}, {
+								name : 'enterDt',
+								index : 'enterDt',
+								align : "center",
+								editable : true,
+								edittype : 'text',
+								editrules : {
+									required : true
+								},
+								formoptions : {
+									elmsuffix : ' *'
+								}
+							}, {
+								name : 'retiredDt',
+								index : 'retiredDt',
+								align : "center",
+							}, {
+								name : 'insSawonId',
+								index : 'insSawonId',
+								align : "center",
+								editable : true,
+								edittype : 'text',
+								editrules : {
+									required : true
+								},
+								formoptions : {
+									elmsuffix : ' *'
+								}
+							}, {
+								name : 'insDtm',
+								index : 'insDtm',
+								align : "center",
+							}, {
+								name : 'updSawonId',
+								index : 'updSawonId',
+								align : "center",
+
+							}, {
+								name : 'updDtm',
+								index : 'updDtm',
+								align : "center",
+							}, ],
+
+							//sizing
+							autowidth : true, //jQgrid 100% 맞춰지게 설정, width 옵션과 동시 사용 불가능 
+							shrinkToFit : true, //width를 자동설정해주는 기능 
+							autoheight : true, //height를 자동설정해주는 기능
+
+							//sort
+							sortname : 'insDtm',
+							sortorder : 'asc',
+							sortable : true, //colmodel 에서 sortable 사용하려면 true
+
+							//edit
+							editurl : "", //셀이 수정될 때 수정요청을 받아서 처리 할 url
+							cellEdit : true, //셀 수정기능을 사용하려면 true
+							cellsubmit : 'remote',
+							cellurl : '', //셀 수정 후 submit url
+
+							//
+							emptyrecords : "Nothing to Display", //데이터가 없을 때 보여줄 문구
+							loadtext : "Loading ...", //로딩 중 보여줄 문구
+
+							//pager
+							pager : '#jqGridPage',
+							pgbuttons : true,
+							pginput : true,
+
+							//row
+							rowNum : 10, //초기에 출력할 데이터의 개수를 설정
+							rownumbers : true,//열 번호
+							rowList : [ 10, 20, 30 ], //페이지 갯수를 선택할 수 있도록 하는 셀렉트박스의 옵션
+							viewrecords : true, //토탈레코드의 수를 표현하는 것을 허용할 지 말 지
+							multiselect : false, //다중선택 
+
+							//caption
+							caption : "사원 정보",
+
+							gridview : true,
+
+							ondblClickRow : function(rowid, iRow, iCol, e) {
+								$("#jqGrid").editGridRow(rowid, updateDialog);
+							}
+
+						}).navGrid('#jqGridPage', {
+					edit : true,
+					add : true,
+					del : true,
+					search : true,
+					refresh : true
+				}, updateDialog, updateDialog, updateDialog);
+			});
+</script>
+
+</html>

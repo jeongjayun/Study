@@ -65,9 +65,9 @@
 				</p>
 				
 				<p>
-					<label th:for="homeAddress">입사 일자 : </label>
+					<label th:for="enterDt">입사 일자 : </label>
 					<input type="text"
-						th:field="*{homeAddress}" placeholder="ooo시 ooo동 ooo번지"> <!-- 수정해야행 -->
+						th:field="*{enterDt}" placeholder="00000000 연월일">
 				</p>
 
 				<p>
@@ -79,7 +79,7 @@
 			</fieldset>
 
 			<button type="submit">작성</button>
-			<button th:onclick="|location.href='@{/list}'|">취소</button>
+			<button th:onclick="|location.href='@{/thymeleafList}'|">취소</button>
 		</form>
 
 
